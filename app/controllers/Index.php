@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use app\Controller;
+use app\models\Note;
+use app\models\Session;
 use app\models\User;
 
 class Index extends Controller
@@ -15,20 +17,19 @@ class Index extends Controller
 ///
     public function __construct()
     {
-//        echo 'hello index';
-
-        echo $_SERVER['DOCUMENT_ROOT'];
-
-        $user = new User();
-        $user->createUser('Ivan', '123');
-        $data = $user->checkUser();
-        echo '<br>';
-        var_dump($data);
-
-        $user1 = new User();
-        $user1->createUser('Vika', '123');
-        $data1 = $user1->checkUser();
-        echo '<br>';
-        var_dump($data1);
+        parent::__construct();
+        session_start();
     }
+
+    public function __invoke()
+    {
+        $db_response = Session::findBy('session_key', $_SESSION['key']);
+        $user_id = $db_response[0]->user_id;
+
+        $this->view->notes = Note::findBy('user_id', $user_id);
+        $this->view->display(__DIR__ . '/../templates/index.php');
+
+
+    }
+
 }

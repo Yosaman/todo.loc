@@ -9,11 +9,11 @@
 namespace App\Controllers;
 
 
-use app\Db;
+use app\Controller;
 use app\models\Session;
 use app\models\User;
 
-class Login
+class Login extends Controller
 {
 
     protected $user;
@@ -22,34 +22,44 @@ class Login
 
     public function __construct()
     {
+        parent::__construct();
         session_start();
     }
 
     public function __invoke()
     {
-        $name = "Petya";
-        $pass = '456';
+        if (!empty($_POST)) {
+//            $name = 'Petya';
+//            $pass = '456';
 
-//        $name = $_POST['name'];
-//        $pass = $_POST['pass'];
+            $name = $_POST['name'];
+            $pass = $_POST['pass'];
 
-        $this->user = new User();
-        $this->user->createUser($name, $pass);
+//       Создаем объект пользователя
+            $this->user = new User();
+            $this->user->createUser($name, $pass);
 
-        if ($this->user->checkUser()){
-            $this->createKey();
+//       Проверяем существует ли такой пользователь в базе данных
+            if ($this->user->checkUser()) {
+                $this->createKey();
 
-//            var_dump($this->user->id);
+        /**
+         * Если пользователь существует, записываем в базу данных новую сессию и перенаправляем на домашнюю страницу
+         * иначе оставляем на текущей
+         */
+                $session = new Session();
+                $session->user_id = $this->user->id;
+                $session->session_key = $this->key;
+                $session->insert();
 
-            $session = new Session();
-            $session->user_id = $this->user->id;
-            $session->session_key = $this->key;
+                header('Location: http://todo.loc/');
+            } else {
+                header('Location: http://todo.loc/login');
+            }
 
-            $session->insert();
-
-            header('Location: http://todo.loc/allo.php');
-
-
+        } else {
+            $this->view->display(__DIR__ . '/../templates/login.php');
+//            echo __DIR__;
         }
     }
 

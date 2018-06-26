@@ -24,12 +24,12 @@ abstract class Model
         );
     }
 
-    public static function findById($id)
+    public static function findBy($col, $param)
     {
         $db = new Db();
 
-        $sql = 'SELECT * FROM ' . static::TABLE . ' WHERE id=:id LIMIT 1';
-        $param = [':id' => $id];
+        $sql = 'SELECT * FROM ' . static::TABLE . ' WHERE '. $col . '=:param';
+        $param = [':param' => $param];
         $post = $db->query($sql, $param, static::class);
 
         if (empty($post)) {
