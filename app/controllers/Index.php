@@ -23,12 +23,19 @@ class Index extends Controller
 
     public function __invoke()
     {
-        $db_response = Session::findBy('session_key', $_SESSION['key']);
-        $user_id = $db_response[0]->user_id;
+        $db_response_session = Session::findBy('session_key', $_SESSION['key']);
+        if ($db_response_session) {
+            $user_id = $db_response_session[0]->user_id;
 
-        $this->view->notes = Note::findBy('user_id', $user_id);
-        $this->view->display(__DIR__ . '/../templates/index.php');
+            $db_response_user = User::findBy('id', $user_id);
+            $current_user = $db_response_user[0];
 
+            $this->view->user_name = $current_user->name;
+            $this->view->notes = Note::findBy('user_id', $user_id);
+            $this->view->display(__DIR__ . '/../templates/index.php');
+        } else {
+            header('Location: http://todo.loc/login');
+        }
 
     }
 

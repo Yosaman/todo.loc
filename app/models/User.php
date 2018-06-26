@@ -12,9 +12,9 @@ namespace app\models;
 use app\Db;
 use app\Model;
 
-class User
+class User extends Model
 {
-//    public const TABLE = 'users';
+    public const TABLE = 'users';
 
     public $id;
     public $name;

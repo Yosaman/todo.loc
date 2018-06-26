@@ -59,6 +59,7 @@
 </head>
 <body>
 <div class="container">
+    <h1>Привет <?php echo $this->user_name; ?></h1>
     <div class="row">
         <button id="newNote" >New note</button>
     </div>
