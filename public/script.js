@@ -77,7 +77,18 @@ function deleteModel() {
             init();
         }
     );
+}
 
+function logOut() {
+    $.post(
+        "index.php",
+        {
+            "action": "logOut",
+        },
+        function () {
+            location.reload();
+        }
+    );
 }
 
 
@@ -87,6 +98,7 @@ $(document).ready(function () {
     $('#deleteNote').click(deleteModel);
     $('#save').click(sendModel);
     $('#newNote').click(newModal);
+    $('#logOut').click(logOut);
     // $('.modal-title').attr('disabled', false);
     // $('.edit').click(editNote);
 });

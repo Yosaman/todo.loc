@@ -18,6 +18,7 @@
         }
 
         .container {
+            margin-top: 40px;
             background-color: linen;
             height: auto;
         }
@@ -53,22 +54,22 @@
             margin-bottom: 30px;
         }
 
-
         textarea { resize: both; }
+
+        #logOut {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>Привет <?php echo $this->user_name; ?></h1>
+    <button class="btn btn-secondary" id="logOut">log out</button>
     <div class="row">
-        <button id="newNote" >New note</button>
+        <button class="btn btn-warning" id="newNote" >New note</button>
     </div>
     <div id='test' class="row">
-        <?php
-        foreach ($this->notes as $note) {
-            $note->printPost2();
-        }
-        ?>
+
     </div>
 </div>
 

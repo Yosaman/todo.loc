@@ -34,7 +34,7 @@ class Index extends Controller
             $this->view->notes = Note::findBy('user_id', $user_id);
             $this->view->display(__DIR__ . '/../templates/index.php');
         } else {
-            header('Location: http://todo.loc/login');
+            header('Location: http://'.$_SERVER['HTTP_HOST'].'/login');
         }
 
     }

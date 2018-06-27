@@ -52,9 +52,9 @@ class Login extends Controller
                 $session->session_key = $this->key;
                 $session->insert();
 
-                header('Location: http://todo.loc/');
+                header('Location: http://'.$_SERVER['HTTP_HOST']);
             } else {
-                header('Location: http://todo.loc/login');
+                header('Location: http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
             }
 
         } else {

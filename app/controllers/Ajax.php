@@ -44,6 +44,9 @@ class Ajax extends Controller
                 case 'delete':
                     $this->delete();
                     break;
+                case 'logOut':
+                    $this->logOut();
+                    break;
             }
         } else {
             echo json_encode([]);
@@ -83,5 +86,10 @@ class Ajax extends Controller
             $note_to_delete->id = $_POST['id'];
             $note_to_delete->delete();
         }
+    }
+
+    public function logOut()
+    {
+        session_destroy();
     }
 }
