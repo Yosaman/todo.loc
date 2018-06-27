@@ -13,11 +13,11 @@ function showNotes(data) {
     console.log(data);
     var out = '';
     for (var id in data) {
-        out += `<div id="${id}" class="note col-md-4">`;
+        out += `<div id="${data[id].id}" class="note col-md-4">`;
         out += `<p class="date">${data[id].date}</p>`;
         out += `<h2>${data[id].title}</h2>`;
         out += `<p class="noteText">${data[id].note}</p>`;
-        out += `<button data-id="${id}" type="button" class="btn btn-block btn-primary">More</button></div>`;
+        out += `<button data-id="${data[id].id}" type="button" class="btn btn-block btn-primary">More</button></div>`;
     }
     $('#test').html(out);
     $('.note').click(openModal);
@@ -50,7 +50,7 @@ function newModal() {
 
 function sendModel() {
     $.post(
-        "core.php",
+        "index.php",
         {
             "action": $("#ModalType").attr('data-type'),
             "id"    : $('#save').attr('data-id'),
@@ -66,7 +66,7 @@ function sendModel() {
 
 function deleteModel() {
     $.post(
-        "core.php",
+        "index.php",
         {
             "action": "delete",
             "id"    : $('#save').attr('data-id'),

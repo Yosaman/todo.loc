@@ -21,8 +21,8 @@ class Ajax extends Controller
     public function __construct()
     {
         parent::__construct();
-//        $this->action = $_POST['action'];
-        $this->action = 'init';
+        $this->action = $_POST['action'];
+//        $this->action = 'init';
     }
 
     public function __invoke()
@@ -36,13 +36,13 @@ class Ajax extends Controller
                     $this->init();
                     break;
                 case 'save':
-                    save();
+                    $this->save();
                     break;
                 case 'new':
-                    newNote();
+                    $this->save();
                     break;
                 case 'delete':
-                    deleteNote();
+                    $this->delete();
                     break;
             }
         } else {
@@ -65,6 +65,23 @@ class Ajax extends Controller
 
     public function save()
     {
+        $note = new Note();
+        $note->title = $_POST['title'];
+        $note->note = $_POST['note'];
+        $note->id = $_POST['id'];
+        $note->user_id = $this->user_id;
+        $note->date = date('Y-m-j H:i:s');
+        $note->save();
+    }
 
+    public function delete()
+    {
+        $db_response = Note::findBy('id', $_POST['id']);
+        $note = $db_response[0];
+        if ($note->user_id == $this->user_id) {
+            $note_to_delete = new Note();
+            $note_to_delete->id = $_POST['id'];
+            $note_to_delete->delete();
+        }
     }
 }

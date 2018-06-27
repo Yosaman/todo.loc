@@ -12,6 +12,7 @@ class Note extends Model
     public $title;
     public $note;
     public $date;
+    public $user_id;
 
 
     public function printPost(){
