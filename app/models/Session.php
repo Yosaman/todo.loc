@@ -9,7 +9,7 @@
 namespace app\models;
 
 
-use App\Model;
+use app\Model;
 
 class Session extends Model
 {

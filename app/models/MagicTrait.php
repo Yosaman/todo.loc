@@ -6,7 +6,7 @@
  * Time: 16:25
  */
 
-namespace App\Models;
+namespace app\Models;
 
 trait MagicTrait
 {

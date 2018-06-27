@@ -8,7 +8,7 @@
 
 namespace app;
 
-use App\models\MagicTrait;
+use app\models\MagicTrait;
 
 class View
 {
